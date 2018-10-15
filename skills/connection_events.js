@@ -9,9 +9,10 @@ module.exports = function(controller) {
 
       controller.on('welcome_back', function(bot, message) {
           // a known user has started a new, fresh session
-          controller.studio.run(bot, 'welcome_user', message.user, message.channel, message).then(function(convo) {
-              convo.gotoThread('welcome_back');
-          })
+          // controller.studio.run(bot, 'welcome_user', message.user, message.channel, message).then(function(convo) {
+          //     convo.gotoThread('welcome_back');
+          // })
+          controller.studio.run(bot, 'welcome_user', message.user, message.channel, message);
       });
 
       controller.studio.before('welcome_user', function(convo, next) {
