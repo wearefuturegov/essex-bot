@@ -4,7 +4,7 @@ module.exports = function(controller) {
     if (process.env.studio_token) {
       controller.on('hello', function(bot, message) {
             // a new session with an unknown user has begun
-            controller.studio.run(bot, 'welcome_user', message.user, message.channel, message);
+            controller.studio.run(bot, 'falls_menu', message.user, message.channel, message);
       });
 
       controller.on('welcome_back', function(bot, message) {
@@ -12,7 +12,7 @@ module.exports = function(controller) {
           // controller.studio.run(bot, 'welcome_user', message.user, message.channel, message).then(function(convo) {
           //     convo.gotoThread('welcome_back');
           // })
-          controller.studio.run(bot, 'welcome_user', message.user, message.channel, message);
+          controller.studio.run(bot, 'falls_menu', message.user, message.channel, message);
       });
 
       controller.studio.before('welcome_user', function(convo, next) {
