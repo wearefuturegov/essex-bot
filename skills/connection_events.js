@@ -21,6 +21,7 @@ module.exports = function(controller) {
       });
 
       controller.on('reconnect', function(bot, message) {
+          controller.studio.run(bot, 'falls_menu', message.user, message.channel, message);
           // the connection between the client and server experienced a disconnect/reconnect
           // bot.reply(message, 'Some sub-space interference just caused our connection to be interrupted. But I am back now.');
       });
