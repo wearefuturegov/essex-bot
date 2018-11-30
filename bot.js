@@ -15,9 +15,7 @@
     -> http://howdy.ai/botkit
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-var env = require('node-env-file');
-env(__dirname + '/.env');
-
+require('dotenv').config();
 
 var Botkit = require('botkit');
 var debug = require('debug')('botkit:main');
