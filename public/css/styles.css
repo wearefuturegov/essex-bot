@@ -176,6 +176,12 @@ a.button {
     width: auto;
     display: inline-block;
     max-width: 75%; }
+    #message_window .message:blank {
+      display: none; }
+    #message_window .message .meta {
+      border-left: 5px solid orange;
+      margin: 7px 7px;
+      padding: 0 7px; }
   #message_window .file_attachment {
     background: #F0F0F0;
     color: #333;

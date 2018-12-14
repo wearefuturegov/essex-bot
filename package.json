@@ -17,6 +17,7 @@
     "express-hbs": "^1.0.4",
     "hoek": ">=4.2.1",
     "mongoose": "^4.13.7",
+    "open-graph": "^0.2.4",
     "querystring": "^0.2.0",
     "request": "^2.79.0",
     "wordfilter": "^0.2.6"

@@ -238,6 +238,28 @@
           delete(that.next_line);
         }
       },
+      getLinkPreview: function(url, done) {
+        var xhr = new XMLHttpRequest();
+        var postData = 'url=' + url
+        xhr.open('POST', '/link_preview', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onload = function () {
+          var response = xhr.responseText;
+          var preview = null;
+          try {
+            preview = JSON.parse(response);
+          } catch (err) {
+            done(xhr.response);
+            return;
+          }
+          done(null, preview);
+        };
+        xhr.onerror = function () {
+          done(xhr.response)
+        };
+        xhr.send(postData);
+      },
       triggerScript: function(script, thread) {
         this.deliverMessage({
           type: 'trigger',
@@ -392,6 +414,51 @@
             window.location = message.goto_link;
           }
         });
+
+        that.on('message', function(message) {
+          if (message.files) {
+            var url;
+
+            for (var i = 0; i < message.files.length; i++) {
+              url = message.files[i].url
+              that.getLinkPreview(url, function(err, response) {
+                if (err) { throw err; }
+                var message = document.createElement('div')
+                message.setAttribute('class', 'message message')
+
+                var meta = document.createElement('div');
+                meta.setAttribute('class', 'meta');
+
+                var link = document.createElement('a')
+                link.setAttribute('href', url)
+                link.innerHTML = url;
+                message.appendChild(link)
+
+                var title = document.createElement('h3')
+                title.innerHTML = response.title;
+
+                meta.appendChild(title)
+
+                if (response.image) {
+                  var image = document.createElement('img')
+                  image.setAttribute('src', response.image.url);
+                  image.setAttribute('width', '120px');
+                  meta.appendChild(image)
+                }
+
+                if (response.description) {
+                  var description = document.createElement('p')
+                  description.innerHTML = response.description;
+                  meta.appendChild(description)
+                }
+
+                message.appendChild(meta)
+
+                that.message_list.appendChild(message)
+              });
+            }
+          }
+        })
 
 
         that.on('message', function(message) {
