@@ -429,7 +429,6 @@
         that.on('message', function(message) {
 
           that.addLinkPreview(message).then(function() {
-            console.log(message)
             that.renderMessage(message);          
           });
 
