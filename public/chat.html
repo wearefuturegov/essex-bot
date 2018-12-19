@@ -35,6 +35,18 @@
                             {{#if message.open_link}}
                               <a href="{{{message.open_link}}}" target="_blank" class="button_message">{{#if message.link_title}}{{message.link_title}}{{else}}{{message.open_link}}{{/if}}</a>
                             {{/if}}
+                            {{#if message.link_preview}}
+                              <div class="meta">
+                                <a href="{{{ message.link_preview.url }}}">{{{ message.link_preview.url }}}</a>
+                                <h3>{{{ message.link_preview.data.title }}}</h3>
+                                {{#if message.link_preview.data.image}}
+                                    <img src="{{{ message.link_preview.data.image.url }}}" width="120px" />
+                                {{/if}}
+                                {{#if message.link_preview.data.description}}
+                                    <p>message.link_preview.data.description</p>
+                                {{/if}}
+                              </div>
+                            {{/if}}
                         </div>
                     </div>
                 </div>
