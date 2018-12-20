@@ -8,7 +8,7 @@ module.exports = function(webserver, controller) {
     og(url, function(err, meta){
       res.setHeader('Content-Type', 'application/json');
       var baseURL = new URL(url).origin;
-      if (meta.image !== undefined && !meta.image.url.startsWith(baseURL)) {
+      if (meta.image !== undefined && !meta.image.url.startsWith('http')) {
         meta.image.url = baseURL + meta.image.url;
       }
       res.send(JSON.stringify(meta));
