@@ -3,11 +3,15 @@ module.exports = function(controller) {
   controller.studio.validate('keeping_independent', 'option', function(convo, next) {
     var option = convo.extractResponse('option');
     var options = ( typeof convo.vars.options != 'undefined' ) ? convo.vars.options : []
-    options.push(option)
-    if (options.length == 3) {
-      convo.gotoThread('show_options')
+    if (option != 'Next step') {
+      options.push(option)
+      if (options.length == 3) {
+        convo.gotoThread('show_options')
+      } else {
+        convo.setVar('options', options);
+        next();
+      }
     } else {
-      convo.setVar('options', options);
       next();
     }
   });
@@ -23,6 +27,13 @@ module.exports = function(controller) {
           return value.title != option
         })
       })
+      
+      if (convo.threads.options[0].quick_replies.slice(-1)[0].title != 'Next step') {
+        convo.threads.options[0].quick_replies.push({
+          title: 'Next step',
+          payload: 'Next step',
+          content_type: 'text' })
+      }
     }
     next();
   })
