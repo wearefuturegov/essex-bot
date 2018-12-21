@@ -1,0 +1,2614 @@
+[
+    {
+        "command": "menu",
+        "description": "The main menu",
+        "script": [
+            {
+                "topic": "default",
+                "script": [
+                    {
+                        "text": [
+                            "This is the menu script. Customize me!"
+                        ]
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            },
+            {
+                "topic": "on_timeout",
+                "script": [
+                    {
+                        "text": [
+                            "Looks like you got distracted. We can continue later."
+                        ]
+                    },
+                    {
+                        "action": "timeout"
+                    }
+                ]
+            },
+            {
+                "topic": "menu",
+                "script": [
+                    {
+                        "text": [
+                            ""
+                        ],
+                        "quick_replies": [
+                            {
+                                "title": "Meals and shopping",
+                                "payload": "Meals and shopping",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Personal care (like washing, dressing and laundry)",
+                                "payload": "Personal care (like washing, dressing and laundry)",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Getting around your home",
+                                "payload": "Getting around your home",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Maintaining your home",
+                                "payload": "Maintaining your home",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Getting out and about",
+                                "payload": "Getting out and about",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Help with feelings of loneliness or isolation",
+                                "payload": "Help with feelings of loneliness or isolation",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Something else",
+                                "payload": "Something else",
+                                "content_type": "text"
+                            }
+                        ],
+                        "collect": {
+                            "key": "main_menu_choice",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "Getting around your home",
+                                    "type": "string",
+                                    "action": "execute_script",
+                                    "execute": {
+                                        "script": "getting_around_in_your_home",
+                                        "thread": "default"
+                                    }
+                                },
+                                {
+                                    "pattern": "Maintaining your home",
+                                    "type": "string",
+                                    "action": "execute_script",
+                                    "execute": {
+                                        "script": "maintaining_and_adapting",
+                                        "thread": "default"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            }
+        ],
+        "triggers": [
+            {
+                "type": "string",
+                "pattern": "menu"
+            }
+        ],
+        "variables": [
+            {
+                "name": "main_menu_choice",
+                "type": "string",
+                "id": 282
+            },
+            {
+                "name": "question_1",
+                "type": "string"
+            },
+            {
+                "name": "question_2",
+                "type": "string"
+            },
+            {
+                "name": "question_3",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "command": "welcome",
+        "description": "Welcomes the user",
+        "script": [
+            {
+                "topic": "default",
+                "script": [
+                    {
+                        "text": [
+                            "Hello. I'm a virtual advisor.\n\n\nI'm here to help you find the right information and advice about keeping well and independent after leaving hospital"
+                        ],
+                        "quick_replies": [
+                            {
+                                "title": "OK",
+                                "payload": "OK",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "What's a Virtual Advisor?",
+                                "payload": "What's a Virtual Advisor?",
+                                "content_type": "text"
+                            }
+                        ],
+                        "collect": {
+                            "key": "welcome_question",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "OK",
+                                    "type": "string",
+                                    "action": "start"
+                                },
+                                {
+                                    "pattern": "What's a Virtual Advisor?",
+                                    "type": "string",
+                                    "action": "what"
+                                }
+                            ]
+                        },
+                        "platforms": {
+                            "web": {
+                                "files": []
+                            }
+                        }
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            },
+            {
+                "topic": "on_timeout",
+                "script": [
+                    {
+                        "text": [
+                            "Looks like you got distracted. We can continue later."
+                        ]
+                    },
+                    {
+                        "action": "timeout"
+                    }
+                ]
+            },
+            {
+                "topic": "what",
+                "script": [
+                    {
+                        "text": [
+                            "I’m not a real person, but I've been made by real people."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "The questions I ask are automated, but the answers I give are based on your input."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "I can give information to people who are leaving hospital and need to organise some help for when they get home."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "Does that sound OK?"
+                        ],
+                        "collect": {
+                            "key": "sound_ok",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "yes",
+                                    "type": "utterance",
+                                    "action": "start"
+                                },
+                                {
+                                    "pattern": "no",
+                                    "type": "utterance",
+                                    "action": "instead"
+                                }
+                            ]
+                        },
+                        "quick_replies": [
+                            {
+                                "title": "Yes",
+                                "payload": "Yes",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "No",
+                                "payload": "No",
+                                "content_type": "text"
+                            }
+                        ]
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            },
+            {
+                "topic": "start",
+                "script": [
+                    {
+                        "text": [
+                            "Great. I'll need to ask you a couple of questions to get started. Is that OK?"
+                        ],
+                        "quick_replies": [
+                            {
+                                "title": "Yes",
+                                "payload": "Yes",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "No",
+                                "payload": "No",
+                                "content_type": "text"
+                            }
+                        ],
+                        "collect": {
+                            "key": "get_started",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "yes",
+                                    "type": "utterance",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "no",
+                                    "type": "utterance",
+                                    "action": "instead"
+                                }
+                            ]
+                        },
+                        "platforms": {
+                            "web": {
+                                "files": []
+                            }
+                        },
+                        "meta": []
+                    },
+                    {
+                        "text": [
+                            "Great. First things first. Can I ask your name so that I know what to call you?"
+                        ],
+                        "collect": {
+                            "key": "name",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "text": [
+                            "Thanks {{vars.name}}. Are you answering these questions for yourself or for someone else?"
+                        ],
+                        "collect": {
+                            "key": "who",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "Myself",
+                                    "type": "string",
+                                    "action": "myself"
+                                },
+                                {
+                                    "pattern": "Someone Else",
+                                    "type": "string",
+                                    "action": "someone_else"
+                                }
+                            ]
+                        },
+                        "quick_replies": [
+                            {
+                                "title": "Myself",
+                                "payload": "Myself",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Someone Else",
+                                "payload": "Someone Else",
+                                "content_type": "text"
+                            }
+                        ]
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            },
+            {
+                "topic": "find_out_more",
+                "script": [
+                    {
+                        "text": [
+                            "OK."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "Here are some other options I've found for you..."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "You can visit <a href=\"https://www.livingwellessex.org/\">LivingWell Essex</a> for information about care and health support in Essex."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "Or <a href=\"http://www.essex.gov.uk/Health-Social-Care/Health-and-social-care-for-adults/Pages/Default.aspx\">Essex.gov.uk</a> for more information on local health and social care."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "Or go to the <a href=\"https://www.nhs.uk/conditions/social-care-and-support-guide/\">NHS website</a> to find out more general information and advice on healthcare and services."
+                        ]
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            },
+            {
+                "topic": "instead",
+                "script": [
+                    {
+                        "text": [
+                            "OK. What would you like to do instead?"
+                        ],
+                        "quick_replies": [
+                            {
+                                "title": "Find out more online",
+                                "payload": "Find out more online",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Talk to someone",
+                                "payload": "Talk to someone",
+                                "content_type": "text"
+                            }
+                        ],
+                        "collect": {
+                            "key": "instead",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "Find out more online",
+                                    "type": "string",
+                                    "action": "find_out_more"
+                                },
+                                {
+                                    "pattern": "Talk to someone",
+                                    "type": "string",
+                                    "action": "execute_script",
+                                    "execute": {
+                                        "script": "talk_to_someone",
+                                        "thread": "default"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            },
+            {
+                "topic": "myself",
+                "script": [
+                    {
+                        "text": [
+                            "OK. Can you tell me how old you are? This is so I can direct you to the right sort of information."
+                        ],
+                        "collect": {
+                            "key": "age",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "text": [
+                            "Thanks. Now, I want to find out types of things would help you stay well when you leave hospital."
+                        ]
+                    },
+                    {
+                        "action": "execute_script",
+                        "execute": {
+                            "script": "menu",
+                            "thread": "menu"
+                        }
+                    }
+                ]
+            },
+            {
+                "topic": "someone_else",
+                "script": [
+                    {
+                        "text": [
+                            "OK. Can you tell me how old they are? \n\n\nThis is so I can direct you to the right sort of information."
+                        ],
+                        "collect": {
+                            "key": "age",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "text": [
+                            "Thanks. Now, I want to find out types of things would help them stay well when they leave hospital."
+                        ]
+                    },
+                    {
+                        "action": "execute_script",
+                        "execute": {
+                            "script": "menu",
+                            "thread": "menu"
+                        }
+                    }
+                ]
+            }
+        ],
+        "triggers": [
+            {
+                "type": "string",
+                "pattern": "welcome"
+            }
+        ],
+        "variables": [
+            {
+                "name": "sound_ok",
+                "type": "string",
+                "id": 55
+            },
+            {
+                "name": "get_started",
+                "type": "string",
+                "id": 343
+            },
+            {
+                "name": "instead",
+                "type": "string",
+                "id": 265
+            },
+            {
+                "name": "welcome_question",
+                "type": "string",
+                "id": 116
+            },
+            {
+                "name": "age",
+                "type": "string",
+                "id": 242
+            },
+            {
+                "name": "who",
+                "type": "string",
+                "id": 273
+            },
+            {
+                "name": "name",
+                "type": "string",
+                "id": 330
+            },
+            {
+                "name": "question_1",
+                "type": "string"
+            },
+            {
+                "name": "question_2",
+                "type": "string"
+            },
+            {
+                "name": "question_3",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "command": "maintaining_and_adapting",
+        "description": "Maintaining and adapting your home",
+        "script": [
+            {
+                "topic": "default",
+                "script": [
+                    {
+                        "text": [
+                            "OK. You've chosen maintaining and adapting your home."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "What would you like to know more about?"
+                        ],
+                        "collect": null
+                    },
+                    {
+                        "action": "menu"
+                    }
+                ]
+            },
+            {
+                "topic": "on_timeout",
+                "script": [
+                    {
+                        "text": [
+                            "Looks like you got distracted. We can continue later."
+                        ]
+                    },
+                    {
+                        "action": "timeout"
+                    }
+                ]
+            },
+            {
+                "topic": "menu",
+                "script": [
+                    {
+                        "text": [
+                            ""
+                        ],
+                        "quick_replies": [
+                            {
+                                "title": "Adapting your home to get around",
+                                "payload": "Adapting your home to get around",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Home repairs",
+                                "payload": "Home repairs",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Clutter and hoarding",
+                                "payload": "Clutter and hoarding",
+                                "content_type": "text"
+                            }
+                        ],
+                        "collect": {
+                            "key": "question_1",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "Adapting your home to get around",
+                                    "type": "string",
+                                    "action": "adapting"
+                                },
+                                {
+                                    "pattern": "Home repairs",
+                                    "type": "string",
+                                    "action": "home_repairs"
+                                },
+                                {
+                                    "pattern": "Clutter and hoarding",
+                                    "type": "string",
+                                    "action": "clutter"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            },
+            {
+                "topic": "adapting",
+                "script": [
+                    {
+                        "text": [
+                            "You can make changes to your home to help manage everyday tasks and stay independent."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "There are small changes that can be made to your home.    These are called \"minor adaptations\". For example:"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "grab rails around the bath"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "shower or toilet"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "grab rails by the front or back door"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "additional stair rails"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "small steps to doors"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "There are also significant changes."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "These are called \"major adaptations\" and cost more. For example:"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "level access showers or wet rooms"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "stairlifts or through-floor lifts"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "wheelchair ramps"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "widening doorways"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "adapting kitchens"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "What would you like to do now?"
+                        ],
+                        "collect": {
+                            "key": "question_1",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "Find out about paying for adaptations yourself",
+                                    "type": "string",
+                                    "action": "paying_for_adaptations"
+                                },
+                                {
+                                    "pattern": "Find out what help you can get with paying for adaptations",
+                                    "type": "string",
+                                    "action": "help_with_paying"
+                                },
+                                {
+                                    "pattern": "Go back to maintaining your home",
+                                    "type": "string",
+                                    "action": "menu"
+                                }
+                            ]
+                        },
+                        "quick_replies": [
+                            {
+                                "title": "Find out about paying for adaptations yourself",
+                                "payload": "Find out about paying for adaptations yourself",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Find out what help you can get with paying for adaptations",
+                                "payload": "Find out what help you can get with paying for adaptations",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Go back to maintaining your home",
+                                "payload": "Go back to maintaining your home",
+                                "content_type": "text"
+                            }
+                        ]
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            },
+            {
+                "topic": "home_repairs",
+                "script": [
+                    {
+                        "text": [
+                            "Getting your house repaired or decorated can improve your quality of life and keep you enjoying your home for longer."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "There are various ways to organise repairs and decorating"
+                        ],
+                        "quick_replies": [
+                            {
+                                "title": "Arrange for repairs and decorating yourself",
+                                "payload": "Arrange for repairs and decorating yourself",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Find out what help you can get for repairs and decorating",
+                                "payload": "Find out what help you can get for repairs and decorating",
+                                "content_type": "text"
+                            }
+                        ],
+                        "collect": {
+                            "key": "question_1",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "Arrange for repairs and decorating yourself",
+                                    "type": "string",
+                                    "action": "arrange_repairs"
+                                },
+                                {
+                                    "pattern": "Find out what help you can get for repairs and decorating",
+                                    "type": "string",
+                                    "action": "help_with_repairs"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            },
+            {
+                "topic": "clutter",
+                "script": [
+                    {
+                        "text": [
+                            "Hoarding is where someone collects a large number of items and keeps them in an untidy way. It can become a health and safety hazard because it's difficult to clean and can cause trips and falls."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "It's important you try to keep your home as clutter-free as you can to avoid hazards and risk to your health."
+                        ],
+                        "quick_replies": [
+                            {
+                                "title": "Find out how your local council can help",
+                                "payload": "Find out how your local council can help",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Get more information",
+                                "payload": "Get more information",
+                                "content_type": "text"
+                            }
+                        ],
+                        "meta": [],
+                        "collect": {
+                            "key": "question_1",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "Find out how your local council can help",
+                                    "type": "string",
+                                    "action": "hoarding_help"
+                                },
+                                {
+                                    "pattern": "Get more information",
+                                    "type": "string",
+                                    "action": "next"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "text": [
+                            "NHS Choices provides information and advice on hoarding disorders."
+                        ],
+                        "platforms": {
+                            "web": {
+                                "files": [
+                                    {
+                                        "url": "https://www.nhs.uk/conditions/hoarding-disorder/"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "text": [
+                            "You can get advice on fire safety at home from the Essex County Fire and Rescue Service."
+                        ],
+                        "platforms": {
+                            "web": {
+                                "files": [
+                                    {
+                                        "url": "http://www.essex-fire.gov.uk/Home_Fire_Safety/"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "text": [
+                            "And read London Fire Brigade's leaflet on safety tips for hoarders and learn how to reduce the risk of fire."
+                        ],
+                        "platforms": {
+                            "web": {
+                                "files": [
+                                    {
+                                        "url": "http://www.essexsab.org.uk/media/1959/hoarders_fire_safety_tips.pdf"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            },
+            {
+                "topic": "paying_for_adaptations",
+                "script": [
+                    {
+                        "text": [
+                            "You can choose to make minor adaptations yourself."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "The Disabled Living Foundation gives information, advice and a list of suppliers to help you choose."
+                        ],
+                        "platforms": {
+                            "web": {
+                                "files": [
+                                    {
+                                        "url": "https://www.dlf.org.uk/"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "text": [
+                            "Find tradespeople near you:"
+                        ],
+                        "platforms": {
+                            "web": {
+                                "files": [
+                                    {
+                                        "url": "https://local.which.co.uk/"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "text": [
+                            ""
+                        ],
+                        "platforms": {
+                            "web": {
+                                "files": [
+                                    {
+                                        "url": "https://www.ratedpeople.com/"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "text": [
+                            ""
+                        ],
+                        "platforms": {
+                            "web": {
+                                "files": [
+                                    {
+                                        "url": "https://www.trustatrader.com/"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "text": [
+                            ""
+                        ],
+                        "platforms": {
+                            "web": {
+                                "files": [
+                                    {
+                                        "url": "https://www.buywithconfidence.gov.uk/"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "text": [
+                            "Age UK gives advice on types of home adaptations to help make your home life easier."
+                        ],
+                        "platforms": {
+                            "web": {
+                                "files": [
+                                    {
+                                        "url": "https://www.ageuk.org.uk/information-advice/care/housing-options/adapting-home/"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            },
+            {
+                "topic": "help_with_paying",
+                "script": [
+                    {
+                        "text": [
+                            "You could get support for minor adaptations costing up to £1000."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "You can ask Essex County Council Adult Social Care to carry out an assessment to see if minor adaptations will help you manage everyday tasks at home."
+                        ],
+                        "platforms": {
+                            "web": {
+                                "files": [
+                                    {
+                                        "url": "https://www.livingwellessex.org/at-home/staying-in-your-own-home/requesting-an-assessment/"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "text": [
+                            "Would you like to know about help with major adaptations?"
+                        ],
+                        "collect": {
+                            "key": "question_1",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "yes",
+                                    "type": "utterance",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "no",
+                                    "type": "utterance",
+                                    "action": "where_next"
+                                }
+                            ]
+                        },
+                        "quick_replies": [
+                            {
+                                "title": "Yes please",
+                                "payload": "Yes please",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "No thanks",
+                                "payload": "No thanks",
+                                "content_type": "text"
+                            }
+                        ]
+                    },
+                    {
+                        "text": [
+                            "If you're disabled or have a long-term health condition and need to make changes to your home, you might be able to get a disabled facilities grant."
+                        ],
+                        "platforms": {
+                            "web": {
+                                "files": [
+                                    {
+                                        "url": "https://www.gov.uk/disabled-facilities-grants"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "text": [
+                            "Would you like to request an assessment?"
+                        ],
+                        "collect": {
+                            "key": "question_2",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "yes",
+                                    "type": "utterance",
+                                    "action": "execute_script",
+                                    "execute": {
+                                        "script": "talk_to_someone",
+                                        "thread": "default"
+                                    }
+                                },
+                                {
+                                    "pattern": "no",
+                                    "type": "utterance",
+                                    "action": "where_next"
+                                }
+                            ]
+                        },
+                        "platforms": {
+                            "web": {
+                                "files": []
+                            }
+                        },
+                        "meta": [],
+                        "quick_replies": [
+                            {
+                                "title": "Yes please",
+                                "payload": "Yes please",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "No thanks",
+                                "payload": "No thanks",
+                                "content_type": "text"
+                            }
+                        ]
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            },
+            {
+                "topic": "where_next",
+                "script": [
+                    {
+                        "text": [
+                            "What would you like to do next?"
+                        ],
+                        "quick_replies": [
+                            {
+                                "title": "More about maintaining and adpating your home",
+                                "payload": "More about maintaining and adpating your home",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Back to main menu",
+                                "payload": "Back to main menu",
+                                "content_type": "text"
+                            }
+                        ],
+                        "collect": {
+                            "key": "question_1",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "More about maintaining and adpating your home",
+                                    "type": "string",
+                                    "action": "menu"
+                                },
+                                {
+                                    "pattern": "Back to main menu",
+                                    "type": "string",
+                                    "action": "next"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "text": [
+                            "How can I help you?"
+                        ],
+                        "collect": {
+                            "key": "question_1",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "action": "execute_script",
+                        "execute": {
+                            "script": "menu",
+                            "thread": "menu"
+                        }
+                    }
+                ]
+            },
+            {
+                "topic": "arrange_repairs",
+                "script": [
+                    {
+                        "text": [
+                            "If you are a council tenant, you may be eligible for financial help for home improvements. Contact your local council for more information..."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "Would you like to contact your local council about repairs and improvements?"
+                        ],
+                        "collect": {
+                            "key": "question_1",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "yes",
+                                    "type": "utterance",
+                                    "action": "execute_script",
+                                    "execute": {
+                                        "script": "talk_to_someone",
+                                        "thread": "collect_info"
+                                    }
+                                },
+                                {
+                                    "pattern": "no",
+                                    "type": "utterance",
+                                    "action": "where_next"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            },
+            {
+                "topic": "help_with_repairs",
+                "script": [
+                    {
+                        "text": [
+                            "This is help_with_repairs"
+                        ]
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            },
+            {
+                "topic": "hoarding_help",
+                "script": [
+                    {
+                        "text": [
+                            "If you're worried about yourself or someone else, speak to your GP for advice."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "Your local council's adult social care team may be able to offer support. An adult social care worker will carry out an assessment of the person's needs with them."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "Essex Floating Support Service offers help with clutter or hoarding. This is a free service offered to vulnerable people who need support with housing related issues."
+                        ],
+                        "platforms": {
+                            "web": {
+                                "files": [
+                                    {
+                                        "url": "https://www.onehousing.co.uk/essex-floating-support-service"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "action": "where_next"
+                    }
+                ]
+            }
+        ],
+        "triggers": [
+            {
+                "type": "string",
+                "pattern": "maintaining_and_adapting"
+            }
+        ],
+        "variables": [
+            {
+                "name": "question_1",
+                "type": "string"
+            },
+            {
+                "name": "question_2",
+                "type": "string"
+            },
+            {
+                "name": "question_3",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "command": "equipment",
+        "description": "Equipment journey",
+        "script": [
+            {
+                "topic": "default",
+                "script": [
+                    {
+                        "text": [
+                            "This is the equipment script. Customize me!"
+                        ]
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            },
+            {
+                "topic": "on_timeout",
+                "script": [
+                    {
+                        "text": [
+                            "Looks like you got distracted. We can continue later."
+                        ]
+                    },
+                    {
+                        "action": "timeout"
+                    }
+                ]
+            },
+            {
+                "topic": "menu",
+                "script": [
+                    {
+                        "text": [
+                            ""
+                        ],
+                        "quick_replies": [
+                            {
+                                "title": "Adapting your home to get around",
+                                "payload": "Adapting your home to get around",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Getting dressed",
+                                "payload": "Getting dressed",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Getting washed",
+                                "payload": "Getting washed",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Going to the toilet",
+                                "payload": "Going to the toilet",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Preparing and cooking foods",
+                                "payload": "Preparing and cooking foods",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Monitoring falls",
+                                "payload": "Monitoring falls",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Getting out and about",
+                                "payload": "Getting out and about",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "I'm not sure",
+                                "payload": "I'm not sure",
+                                "content_type": "text"
+                            }
+                        ],
+                        "meta": [],
+                        "collect": {
+                            "key": "question_1",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "Getting dressed",
+                                    "type": "string",
+                                    "action": "getting_dressed"
+                                },
+                                {
+                                    "pattern": "Getting washed",
+                                    "type": "string",
+                                    "action": "getting_washed"
+                                },
+                                {
+                                    "pattern": "Going to the toilet",
+                                    "type": "string",
+                                    "action": "going_to_the_toilet"
+                                },
+                                {
+                                    "pattern": "Preparing and cooking foods",
+                                    "type": "string",
+                                    "action": "preparing_and_cooking_foods"
+                                },
+                                {
+                                    "pattern": "Monitoring falls",
+                                    "type": "string",
+                                    "action": "monitoring_falls"
+                                },
+                                {
+                                    "pattern": "I'm not sure",
+                                    "type": "string",
+                                    "action": "not_sure"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            },
+            {
+                "topic": "getting_dressed",
+                "script": [
+                    {
+                        "text": [
+                            "Equipment to help with dressing includes:"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "button hookers"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "dressing sticks and zip pullers"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "sock and stocking aids to help you put them on"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "long-handed shoe horns to make it easier to get your shoes on and off"
+                        ]
+                    },
+                    {
+                        "action": "how_to_get"
+                    }
+                ]
+            },
+            {
+                "topic": "getting_washed",
+                "script": [
+                    {
+                        "text": [
+                            "Equipment to help you with washing includes:"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "tap turners, lever taps and automatic taps if you have problems with your grip"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "grab rails to help you get in and out of the bath or shower"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "a bath board, bath seat or bath lift to make it easier and safer to use the bath"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "shower boards and swivel seats to help you get in and out of the bath"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "long-handled sponges and brushes to help you wash your back and feet"
+                        ]
+                    },
+                    {
+                        "action": "how_to_get"
+                    }
+                ]
+            },
+            {
+                "topic": "going_to_the_toilet",
+                "script": [
+                    {
+                        "text": [
+                            "Equipment to help in the toilet includes:"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "raised toilet seats and toilet rails to make it easier to get on or off the toilet"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "long-handed bottom wipers to help you clean yourself after going to the toilet"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "waterproof bedding and mattresses can help manage incontinence"
+                        ]
+                    },
+                    {
+                        "action": "how_to_get"
+                    }
+                ]
+            },
+            {
+                "topic": "preparing_and_cooking_foods",
+                "script": [
+                    {
+                        "text": [
+                            "Equipment to help you prepare and cook food includes:"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "kettle-tippers and lightweight kettles"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "non-slip mats  bottle, jar and tin openers"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "food choppers"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "spreader boards"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "utensils with large, long, weighed or curved grips"
+                        ]
+                    },
+                    {
+                        "action": "how_to_get"
+                    }
+                ]
+            },
+            {
+                "topic": "monitoring_falls",
+                "script": [
+                    {
+                        "text": [
+                            "There is technology that can help you stay independent in your home and better connected with your community."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "Alarms, sensors, monitors and detectors can be placed around your home or worn."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "They can keep you safe and help make life easier for you and those that care for you"
+                        ]
+                    },
+                    {
+                        "action": "how_to_get"
+                    }
+                ]
+            },
+            {
+                "topic": "not_sure",
+                "script": [
+                    {
+                        "text": [
+                            "Try The Disabled Living Foundation's Ask SARA tool. It gives advice on equipment and where to get them."
+                        ],
+                        "platforms": {
+                            "web": {
+                                "files": [
+                                    {
+                                        "url": "https://asksara.dlf.org.uk/?auth=sara5"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            },
+            {
+                "topic": "how_to_get",
+                "script": [
+                    {
+                        "text": [
+                            "Would you like to find out how to get some of this equipment?"
+                        ],
+                        "quick_replies": [
+                            {
+                                "title": "Yes, and I'm happy to pay for this myself",
+                                "payload": "Yes, and I'm happy to pay for this myself",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Yes, and I'd like to find out how I can get help with paying for this",
+                                "payload": "Yes, and I'd like to find out how I can get help with paying for this",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "No thanks, I'd like help with something else.",
+                                "payload": "No thanks, I'd like help with something else.",
+                                "content_type": "text"
+                            }
+                        ],
+                        "meta": [],
+                        "collect": {
+                            "key": "question_1",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "Yes, and I'm happy to pay for this myself",
+                                    "type": "string",
+                                    "action": "pay_for_equipment"
+                                },
+                                {
+                                    "pattern": "No thanks, I'd like help with something else.",
+                                    "type": "string",
+                                    "action": "something_else"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            },
+            {
+                "topic": "pay_for_equipment",
+                "script": [
+                    {
+                        "text": [
+                            "This is pay_for_equipment"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "Here is a list of services that might be able to help you find equipment:"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "The Disabled Living Foundation's Ask SARA tool gives advice on equipment and where to get them"
+                        ],
+                        "platforms": {
+                            "web": {
+                                "files": [
+                                    {
+                                        "url": "https://asksara.dlf.org.uk/?auth=sara5"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "text": [
+                            "Essex Cares Ltd (ECL) provides sensory and equipment services on behalf of Essex County Council"
+                        ],
+                        "platforms": {
+                            "web": {
+                                "files": [
+                                    {
+                                        "url": "https://www.ecl.org/"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "text": [
+                            "Age UK  gives information and advice on using technology for independence."
+                        ],
+                        "platforms": {
+                            "web": {
+                                "files": [
+                                    {
+                                        "url": "https://www.ageuk.org.uk/products/mobility-and-independence-at-home/"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "text": [
+                            "The Red Cross  offers short-term loans of some equipment"
+                        ],
+                        "platforms": {
+                            "web": {
+                                "files": [
+                                    {
+                                        "url": "https://www.redcross.org.uk/get-help/borrow-a-wheelchair##"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "text": [
+                            "NHS Choices can provide more information and advice on equipment to make life easier"
+                        ],
+                        "platforms": {
+                            "web": {
+                                "files": [
+                                    {
+                                        "url": "https://www.nhs.uk/conditions/social-care-and-support-guide/care-services-equipment-and-care-homes/household-gadgets-and-equipment-to-make-life-easier/"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            },
+            {
+                "topic": "something_else",
+                "script": [
+                    {
+                        "text": [
+                            "What would you like help with next?"
+                        ],
+                        "quick_replies": [
+                            {
+                                "title": "Back to equipment",
+                                "payload": "Back to equipment",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Main menu",
+                                "payload": "Main menu",
+                                "content_type": "text"
+                            }
+                        ],
+                        "collect": {
+                            "key": "question_1",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "Back to equipment",
+                                    "type": "string",
+                                    "action": "menu"
+                                },
+                                {
+                                    "pattern": "Main menu",
+                                    "type": "string",
+                                    "action": "execute_script",
+                                    "execute": {
+                                        "script": "menu",
+                                        "thread": "menu"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            }
+        ],
+        "triggers": [
+            {
+                "type": "string",
+                "pattern": "equipment"
+            }
+        ],
+        "variables": [
+            {
+                "name": "question_1",
+                "type": "string"
+            },
+            {
+                "name": "question_2",
+                "type": "string"
+            },
+            {
+                "name": "question_3",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "command": "getting_around_in_your_home",
+        "description": "Getting around in your home",
+        "script": [
+            {
+                "topic": "default",
+                "script": [
+                    {
+                        "text": [
+                            "OK. You've chosen getting around in your home."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "What would you like to know more about?"
+                        ],
+                        "collect": null
+                    },
+                    {
+                        "action": "menu"
+                    }
+                ]
+            },
+            {
+                "topic": "on_timeout",
+                "script": [
+                    {
+                        "text": [
+                            "Looks like you got distracted. We can continue later."
+                        ]
+                    },
+                    {
+                        "action": "timeout"
+                    }
+                ]
+            },
+            {
+                "topic": "menu",
+                "script": [
+                    {
+                        "text": [
+                            ""
+                        ],
+                        "quick_replies": [
+                            {
+                                "title": "Tips to prevent falls",
+                                "payload": "Tips to prevent falls",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Exercises you can do in the home",
+                                "payload": "Exercises you can do in the home",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Equipment to help you get around",
+                                "payload": "Equipment to help you get around",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Find out about physiotherapy",
+                                "payload": "Find out about physiotherapy",
+                                "content_type": "text"
+                            }
+                        ],
+                        "collect": {
+                            "key": "question_1",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "Tips to prevent falls",
+                                    "type": "string",
+                                    "action": "tips"
+                                },
+                                {
+                                    "pattern": "Exercises you can do in the home",
+                                    "type": "string",
+                                    "action": "exercises"
+                                },
+                                {
+                                    "pattern": "Equipment to help you get around",
+                                    "type": "string",
+                                    "action": "equipment"
+                                },
+                                {
+                                    "pattern": "Find out about physiotherapy",
+                                    "type": "string",
+                                    "action": "physiotherapy"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            },
+            {
+                "topic": "tips",
+                "script": [
+                    {
+                        "text": [
+                            "Here are some of the most effective ways to help prevent falls:"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "* removing clutter, trailing wires and frayed carpet\n* using non-slip mats and rugs\n* using high-wattage light bulbs in lamps and torches, so you can see clearly\n* organising your home so that climbing, stretching and bending are kept to a minimum, and to avoid bumping into things"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "* not walking on slippery floors in socks or tights\n* not wearing loose-fitting, trailing clothes that might trip you up\n* wearing well-fitting shoes that are in good condition and support the ankle\n* taking care of your feet by trimming your toenails regularly and seeing a GP or chiropodist about any foot problems"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "You can find more falls prevention tips on the NHS website"
+                        ],
+                        "platforms": {
+                            "web": {
+                                "files": [
+                                    {
+                                        "url": "https://www.nhs.uk/conditions/falls/prevention/"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "text": [
+                            "AgeUK also provide information on how to avoid falls"
+                        ],
+                        "platforms": {
+                            "web": {
+                                "files": [
+                                    {
+                                        "url": "https://www.ageuk.org.uk/information-advice/health-wellbeing/fitness/falls-prevention/"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "action": "where_next"
+                    }
+                ]
+            },
+            {
+                "topic": "exercises",
+                "script": [
+                    {
+                        "text": [
+                            "There are lots of simple exercises that you can do in your own home to improve your strength and mobility."
+                        ],
+                        "meta": []
+                    },
+                    {
+                        "text": [
+                            "Try these exercises to improve your balance."
+                        ],
+                        "platforms": {
+                            "web": {
+                                "files": [
+                                    {
+                                        "url": "https://www.nhs.uk/live-well/exercise/balance-exercises/"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "text": [
+                            "And combine them with these exercises to improve strength."
+                        ],
+                        "platforms": {
+                            "web": {
+                                "files": [
+                                    {
+                                        "url": "https://www.nhs.uk/live-well/exercise/strength-exercises/"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "text": [
+                            "And these to improve flexibility"
+                        ],
+                        "platforms": {
+                            "web": {
+                                "files": [
+                                    {
+                                        "url": "https://www.nhs.uk/live-well/exercise/flexibility-exercises/"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "text": [
+                            "And here are some exercises you can even do sitting down."
+                        ],
+                        "platforms": {
+                            "web": {
+                                "files": [
+                                    {
+                                        "url": "https://www.nhs.uk/live-well/exercise/physical-activity-guidelines-older-adults/"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "action": "where_next"
+                    }
+                ]
+            },
+            {
+                "topic": "equipment",
+                "script": [
+                    {
+                        "text": [
+                            "Some equipment and daily living aids can make it easier for you to live at home and stay independent."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "And if you're caring for someone, equipment could help make your work easier and safer."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "What tasks do you think equipment might help you with?"
+                        ],
+                        "collect": null
+                    },
+                    {
+                        "action": "execute_script",
+                        "execute": {
+                            "script": "equipment",
+                            "thread": "menu"
+                        }
+                    }
+                ]
+            },
+            {
+                "topic": "where_next",
+                "script": [
+                    {
+                        "text": [
+                            "Where would you like to go next?"
+                        ],
+                        "collect": null
+                    },
+                    {
+                        "action": "menu"
+                    }
+                ]
+            },
+            {
+                "topic": "physiotherapy",
+                "script": [
+                    {
+                        "text": [
+                            "Physiotherapy is a treatment to improve movement, flexibility, coordination and strength. It helps people who are experiencing difficulties with their walking."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "Would you like to find a physiotherapist?"
+                        ],
+                        "collect": {
+                            "key": "question_1",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "yes",
+                                    "type": "utterance",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "no",
+                                    "type": "utterance",
+                                    "action": "where_next"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "text": [
+                            "You might be referred to physiotherapist following a hospital stay, or after seeing a GP, district nurse or social worker."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "Find out about ECL (Essex Cares Ltd) physiotherapy services."
+                        ],
+                        "platforms": {
+                            "web": {
+                                "files": [
+                                    {
+                                        "url": "https://www.ecl.org/"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "text": [
+                            "Or if you want to find private physiotherapists in your area, try these links:"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "Chartered Society of Physiotherapy"
+                        ],
+                        "platforms": {
+                            "web": {
+                                "files": [
+                                    {
+                                        "url": "https://www.csp.org.uk/"
+                                    }
+                                ]
+                            }
+                        },
+                        "meta": []
+                    },
+                    {
+                        "text": [
+                            "Physio First"
+                        ],
+                        "platforms": {
+                            "web": {
+                                "files": [
+                                    {
+                                        "url": "https://www.physiofirst.org.uk/"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "action": "where_next"
+                    }
+                ]
+            }
+        ],
+        "triggers": [
+            {
+                "type": "string",
+                "pattern": "getting_around_in_your_home"
+            }
+        ],
+        "variables": [
+            {
+                "name": "question_1",
+                "type": "string"
+            },
+            {
+                "name": "question_2",
+                "type": "string"
+            },
+            {
+                "name": "question_3",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "command": "talk_to_someone",
+        "description": "Allows a user to talk to someone",
+        "script": [
+            {
+                "topic": "default",
+                "script": [
+                    {
+                        "text": [
+                            "OK. Let me give you some examples of people who might be able to help"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "What would you like to talk about?"
+                        ],
+                        "collect": {
+                            "key": "question_1",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "Advice on equipment in your home",
+                                    "type": "string",
+                                    "action": "equipment_advice"
+                                },
+                                {
+                                    "pattern": "Organising care services",
+                                    "type": "string",
+                                    "action": "organising_care"
+                                },
+                                {
+                                    "pattern": "Paying for care",
+                                    "type": "string",
+                                    "action": "paying_for_care"
+                                }
+                            ]
+                        },
+                        "quick_replies": [
+                            {
+                                "title": "Advice on equipment in your home",
+                                "payload": "Advice on equipment in your home",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Organising care services",
+                                "payload": "Organising care services",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Paying for care",
+                                "payload": "Paying for care",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "I'm not sure",
+                                "payload": "I'm not sure",
+                                "content_type": "text"
+                            }
+                        ]
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            },
+            {
+                "topic": "on_timeout",
+                "script": [
+                    {
+                        "text": [
+                            "Looks like you got distracted. We can continue later."
+                        ]
+                    },
+                    {
+                        "action": "timeout"
+                    }
+                ]
+            },
+            {
+                "topic": "equipment_advice",
+                "script": [
+                    {
+                        "text": [
+                            "Your local council offers a service that assesses your home and recommends equipment or adaptations."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "Having a home assessment is free."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "Your council could pay for equipment that costs less than £1,000. Ask social services at your local council about getting a home assessment."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "Would you like to speak to someone about a home assessment?"
+                        ],
+                        "collect": {
+                            "key": "question_1",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "Yes",
+                                    "type": "string",
+                                    "action": "collect_info"
+                                },
+                                {
+                                    "pattern": "No",
+                                    "type": "string",
+                                    "action": "where_next"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            },
+            {
+                "topic": "organising_care",
+                "script": [
+                    {
+                        "text": [
+                            "If you're finding it difficult to look after yourself and manage everyday tasks, you can contact Essex County Council to talk about your care and support needs."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "Would you like to speak to someone about organising care?"
+                        ],
+                        "collect": {
+                            "key": "question_1",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "yes",
+                                    "type": "utterance",
+                                    "action": "collect_info"
+                                },
+                                {
+                                    "pattern": "no",
+                                    "type": "utterance",
+                                    "action": "where_next"
+                                }
+                            ]
+                        },
+                        "quick_replies": [
+                            {
+                                "title": "Yes",
+                                "payload": "Yes",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "No",
+                                "payload": "No",
+                                "content_type": "text"
+                            }
+                        ]
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            },
+            {
+                "topic": "paying_for_care",
+                "script": [
+                    {
+                        "text": [
+                            "Most people have to pay something towards their care and support."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "The local council can work out how much you might pay by carrying out a financial assessment."
+                        ]
+                    },
+                    {
+                        "text": [
+                            "Find out more at Essex.gov.uk"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "Would you like to speak to someone about paying for care?"
+                        ],
+                        "collect": {
+                            "key": "question_1",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "yes",
+                                    "type": "utterance",
+                                    "action": "collect_info"
+                                },
+                                {
+                                    "pattern": "no",
+                                    "type": "utterance",
+                                    "action": "where_next"
+                                }
+                            ]
+                        },
+                        "quick_replies": [
+                            {
+                                "title": "Yes",
+                                "payload": "Yes",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "No",
+                                "payload": "No",
+                                "content_type": "text"
+                            }
+                        ]
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            },
+            {
+                "topic": "collect_info",
+                "script": [
+                    {
+                        "text": [
+                            "OK great. I just need to ask you a few questions to get you to the right person"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "INFORMATION GATHERING"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "I've passed on your details to someone who can help. They will be in touch with you within xxx days"
+                        ]
+                    },
+                    {
+                        "text": [
+                            "Is there anything else I can help you with?"
+                        ],
+                        "collect": {
+                            "key": "question_1",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "yes",
+                                    "type": "utterance",
+                                    "action": "execute_script",
+                                    "execute": {
+                                        "script": "menu",
+                                        "thread": "default"
+                                    }
+                                },
+                                {
+                                    "pattern": "no",
+                                    "type": "utterance",
+                                    "action": "next"
+                                }
+                            ]
+                        },
+                        "quick_replies": [
+                            {
+                                "title": "Yes",
+                                "payload": "Yes",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "No",
+                                "payload": "No",
+                                "content_type": "text"
+                            }
+                        ]
+                    },
+                    {
+                        "text": [
+                            "OK. I hope this information was useful for you. Come back any time if I can help you with anything else"
+                        ]
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            },
+            {
+                "topic": "where_next",
+                "script": [
+                    {
+                        "text": [
+                            "What would you like to do instead?"
+                        ],
+                        "quick_replies": [
+                            {
+                                "title": "Talk to someone else",
+                                "payload": "Talk to someone else",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Go back to the falls menu",
+                                "payload": "Go back to the falls menu",
+                                "content_type": "text"
+                            },
+                            {
+                                "title": "Go back to the main menu",
+                                "payload": "Go back to the main menu",
+                                "content_type": "text"
+                            }
+                        ],
+                        "meta": [],
+                        "collect": {
+                            "key": "question_1",
+                            "options": [
+                                {
+                                    "default": true,
+                                    "pattern": "default",
+                                    "action": "next"
+                                },
+                                {
+                                    "pattern": "Talk to someone else",
+                                    "type": "string",
+                                    "action": "default"
+                                },
+                                {
+                                    "pattern": "Go back to the falls menu",
+                                    "type": "string",
+                                    "action": "execute_script",
+                                    "execute": {
+                                        "script": "getting_around_in_your_home",
+                                        "thread": "default"
+                                    }
+                                },
+                                {
+                                    "pattern": "Go back to the main menu",
+                                    "type": "string",
+                                    "action": "execute_script",
+                                    "execute": {
+                                        "script": "menu",
+                                        "thread": "menu"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "action": "complete"
+                    }
+                ]
+            }
+        ],
+        "triggers": [
+            {
+                "type": "string",
+                "pattern": "talk_to_someone"
+            }
+        ],
+        "variables": [
+            {
+                "name": "question_1",
+                "type": "string"
+            },
+            {
+                "name": "question_2",
+                "type": "string"
+            },
+            {
+                "name": "question_3",
+                "type": "string"
+            }
+        ]
+    }
+]
